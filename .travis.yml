@@ -15,7 +15,7 @@ before_install:
     - sudo gem install r10k
     - ls /opt/puppetlabs/puppet/bin/
     - sudo find / -name r10k
-    - travis_wait 20 cd /tmp/datashield-infrastructure/puppet/environments/datashield_travis && sudo /home/travis/.rvm/gems/ruby-2.4.1/gems/r10k-2.6.3/bin/r10k puppetfile install && cd -
+    - travis_wait 20 (cd /tmp/datashield-infrastructure/puppet/environments/datashield_travis && sudo /home/travis/.rvm/gems/ruby-2.4.1/gems/r10k-2.6.3/bin/r10k puppetfile install)
     - travis_wait 45 sudo /opt/puppetlabs/bin/puppet apply /tmp/datashield-infrastructure/puppet/environments/datashield_travis/manifests/site.pp --environment datashield_travis --environmentpath /tmp/datashield-infrastructure/puppet/environments
 
 script:
