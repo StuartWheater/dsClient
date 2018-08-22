@@ -33,4 +33,3 @@ notifications:
 
 after_success:
     - Rscript -e 'covr::codecov()'
-
