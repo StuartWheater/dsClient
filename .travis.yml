@@ -13,6 +13,7 @@ before_install:
     - sudo apt-get install -q r-base-core -y
     - sudo apt-get install -q openjdk-8-jre -y
     - sudo apt-get install -q python -y
+    - sudo apt-get install -q curl -y
     - sudo /opt/puppetlabs/puppet/bin/gem install r10k
     - git clone -b ubuntu16 https://github.com/StuartWheater/datashield-infrastructure.git /tmp/datashield-infrastructure
     - sudo gem install r10k
