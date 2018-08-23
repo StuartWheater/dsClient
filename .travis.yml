@@ -10,6 +10,7 @@ before_install:
     - sudo apt-get update -qq
     - sudo apt-get install -qq puppet-agent -y
     - sudo apt-get install -qq git -y
+    - sudo apt-get install -q r-base-core -y
     - sudo /opt/puppetlabs/puppet/bin/gem install r10k
     - git clone -b ubuntu16 https://github.com/StuartWheater/datashield-infrastructure.git /tmp/datashield-infrastructure
     - sudo gem install r10k
