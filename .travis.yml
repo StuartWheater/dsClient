@@ -2,13 +2,8 @@ language: generic
 sudo: required
 dist: xenial
 before_install:
-    - pwd
-    - sudo pwd
     - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-    - ls -la .
     - chmod 755 ./travis-tool.sh
-    - sudo ls -la .
-    - exit 1
     - wget -nv https://apt.puppetlabs.com/puppet5-release-xenial.deb
     - sudo dpkg -i puppet5-release-xenial.deb
     - sudo rm -f puppet5-release-xenial.deb
@@ -24,11 +19,13 @@ before_install:
     - travis_wait 30 sudo /opt/puppetlabs/bin/puppet apply /tmp/datashield-infrastructure/puppet/environments/datashield_travis/manifests/site.pp --environment datashield_travis --environmentpath /tmp/datashield-infrastructure/puppet/environments
 
 script:
-    - sudo /tmp/travis-tool.sh install_github jimhester/covr
-    - /tmp/travis-tool.sh run_tests
+    - pwd
+    - sudo pwd
+    - sudo ./travis-tool.sh install_github jimhester/covr
+    - ./travis-tool.sh run_tests
 
 after_failure:
-    - sudo /tmp/travis-tool.sh dump_logs
+    - sudo ./travis-tool.sh dump_logs
     - sudo cat /var/log/opal/stdout.log
 
 notifications:
