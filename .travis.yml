@@ -3,10 +3,11 @@ sudo: required
 dist: xenial
 before_install:
     - pwd
-    - curl -OL --output /tmp/travis-tool.sh http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-    - ls /tmp/ .
+    - sudo pwd
+    - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+    - ls -la .
     - chmod 755 ./travis-tool.sh
-    - chmod 755 /tmp/travis-tool.sh
+    - sudo ls -la .
     - exit 1
     - wget -nv https://apt.puppetlabs.com/puppet5-release-xenial.deb
     - sudo dpkg -i puppet5-release-xenial.deb
