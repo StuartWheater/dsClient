@@ -2,6 +2,7 @@ language: generic
 sudo: required
 dist: xenial
 before_install:
+    - pwd
     - curl -L -o /tmp/travis-tool.sh http://raw.github.com/StuartWheater/r-travis/master/scripts/travis-tool.sh
     - chmod 755 /tmp/travis-tool.sh
     - wget -nv https://apt.puppetlabs.com/puppet5-release-xenial.deb
@@ -17,10 +18,13 @@ before_install:
     - sudo find / -name r10k
     - cd /tmp/datashield-infrastructure/puppet/environments/datashield_travis && sudo /home/travis/.rvm/gems/ruby-2.4.1/gems/r10k-2.6.4/bin/r10k puppetfile install && cd --
     - sudo /opt/puppetlabs/bin/puppet apply --verbose /tmp/datashield-infrastructure/puppet/environments/datashield_travis/manifests/site.pp --environment datashield_travis --environmentpath /tmp/datashield-infrastructure/puppet/environments 2>&1
+    - pwd
 
 script:
+    - pwd
     - sudo /tmp/travis-tool.sh install_github jimhester/covr
     - /tmp/travis-tool.sh run_tests
+    - pwd
 
 after_failure:
     - sudo /tmp/travis-tool.sh dump_logs
