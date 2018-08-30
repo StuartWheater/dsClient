@@ -2,7 +2,6 @@ language: generic
 sudo: required
 dist: xenial
 before_install:
-    - pwd
     - curl -L -o /tmp/travis-tool.sh http://raw.github.com/StuartWheater/r-travis/master/scripts/travis-tool.sh
     - chmod 755 /tmp/travis-tool.sh
     - wget -nv https://apt.puppetlabs.com/puppet5-release-xenial.deb
@@ -14,20 +13,18 @@ before_install:
     - sudo /opt/puppetlabs/puppet/bin/gem install r10k
     - git clone -b ubuntu16 https://github.com/StuartWheater/datashield-infrastructure.git /tmp/datashield-infrastructure
     - sudo gem install r10k
-    - ls /opt/puppetlabs/puppet/bin/
-    - sudo find / -name r10k
+#    - ls /opt/puppetlabs/puppet/bin/
+#    - sudo find / -name r10k
     - cd /tmp/datashield-infrastructure/puppet/environments/datashield_travis && sudo /home/travis/.rvm/gems/ruby-2.4.1/gems/r10k-2.6.4/bin/r10k puppetfile install && cd --
     - sudo /opt/puppetlabs/bin/puppet apply --debug /tmp/datashield-infrastructure/puppet/environments/datashield_travis/manifests/site.pp --environment datashield_travis --environmentpath /tmp/datashield-infrastructure/puppet/environments 2>&1
     - pwd
 
 script:
-    - pwd
     - sudo /tmp/travis-tool.sh install_github jimhester/covr
-    - /tmp/travis-tool.sh run_tests
-    - pwd
+    - cd /home/travis/build/StuartWheater/dsClient && /tmp/travis-tool.sh run_tests && cd --
 
 after_failure:
-    - sudo /tmp/travis-tool.sh dump_logs
+    - cd /home/travis/build/StuartWheater/dsClient && sudo /tmp/travis-tool.sh dump_logs && cd --
     - sudo cat /var/log/opal/stdout.log
 
 notifications:
