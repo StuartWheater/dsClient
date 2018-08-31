@@ -6,6 +6,7 @@ before_install:
     - chmod 755 /tmp/travis-tool.sh
     - wget -nv https://apt.puppetlabs.com/puppet5-release-xenial.deb
     - sudo dpkg -i puppet5-release-xenial.deb
+    - sudo apt-get install -qq -f
     - sudo rm -f puppet5-release-xenial.deb
     - sudo apt-get update -qq
     - sudo apt-get upgrade -qq -y
