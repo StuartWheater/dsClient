@@ -2,6 +2,8 @@ language: generic
 sudo: required
 dist: xenial
 before_install:
+    - (sleep 10s; echo "Timer1") & (sleep 15s; echo "Timer2")
+    - exit 1
     - curl -L -o /tmp/travis-tool.sh http://raw.github.com/StuartWheater/r-travis/master/scripts/travis-tool.sh
     - chmod 755 /tmp/travis-tool.sh
     - wget -nv https://apt.puppetlabs.com/puppet5-release-xenial.deb
