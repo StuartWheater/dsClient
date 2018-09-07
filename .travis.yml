@@ -19,13 +19,15 @@ before_install:
 #    - ls /opt/puppetlabs/puppet/bin/
 #    - sudo find / -name r10k
     - cd /tmp/datashield-infrastructure/puppet/environments/datashield_travis && sudo /home/travis/.rvm/gems/ruby-2.4.1/gems/r10k-2.6.4/bin/r10k puppetfile install && cd --
-    - sudo /opt/puppetlabs/bin/puppet apply --verbose /tmp/datashield-infrastructure/puppet/environments/datashield_travis/manifests/site.pp --environment datashield_travis --environmentpath /tmp/datashield-infrastructure/puppet/environments 2>&1
-    - pwd
+    - sudo /opt/puppetlabs/bin/puppet apply /tmp/datashield-infrastructure/puppet/environments/datashield_travis/manifests/site.pp --environment datashield_travis --environmentpath /tmp/datashield-infrastructure/puppet/environments 2>&1
 
 script:
     - sudo /tmp/travis-tool.sh install_github jimhester/covr
     - cd /home/travis/build/StuartWheater/dsClient
-    - travis_wait 20 /tmp/travis-tool.sh run_tests
+    - echo "**** Opal Logs ****"
+    - cat /var/log/opal/*
+    - echo "*******************"
+    - /tmp/travis-tool.sh run_tests
 
 after_failure:
     - cd /home/travis/build/StuartWheater/dsClient && sudo /tmp/travis-tool.sh dump_logs && cd --
