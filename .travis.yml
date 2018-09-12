@@ -25,7 +25,49 @@ before_install:
 #    - ls /opt/puppetlabs/puppet/bin/
 #    - sudo find / -name r10k
     - cd /tmp/datashield-infrastructure/puppet/environments/datashield_travis && sudo /home/travis/.rvm/gems/ruby-2.4.1/gems/r10k-2.6.4/bin/r10k puppetfile install && cd --
-    - sudo /opt/puppetlabs/bin/puppet apply /tmp/datashield-infrastructure/puppet/environments/datashield_travis/manifests/site.pp --environment datashield_travis --environmentpath /tmp/datashield-infrastructure/puppet/environments 2>&1 | xargs -n1 --delimiter='\n' echo "`date --utc +'%F %T'`"
+    - sudo /opt/puppetlabs/bin/puppet apply /tmp/datashield-infrastructure/puppet/environments/datashield_travis/manifests/site.pp --environment datashield_travis --environmentpath /tmp/datashield-infrastructure/puppet/environments 2>&1 | awk '{ print strftime("%Y-%m-%d %H:%M:%S"), $0; fflush(); }'
+
+script:
+    - sudo /tmp/travis-tool.sh install_github jimhester/covr
+    - cd /home/travis/build/StuartWheater/dsClient
+    - echo "**** Opal Logs ****"
+    - cat /var/log/opal/*
+    - echo "*******************"
+    - /tmp/travis-tool.sh run_tests
+
+after_failure:
+    - cd /home/travis/build/StuartWheater/dsClient && sudo /tmp/travis-tool.sh dump_logs && cd --
+    - sudo cat /var/log/opal/stdout.log
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+after_success:
+    - Rscript -e 'covr::codecov()'
+
+
+script:
+    - sudo /tmp/travis-tool.sh install_github jimhester/covr
+    - cd /home/travis/build/StuartWheater/dsClient
+    - echo "**** Opal Logs ****"
+    - cat /var/log/opal/*
+    - echo "*******************"
+    - /tmp/travis-tool.sh run_tests
+
+after_failure:
+    - cd /home/travis/build/StuartWheater/dsClient && sudo /tmp/travis-tool.sh dump_logs && cd --
+    - sudo cat /var/log/opal/stdout.log
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+after_success:
+    - Rscript -e 'covr::codecov()'
+
 
 script:
     - sudo /tmp/travis-tool.sh install_github jimhester/covr
