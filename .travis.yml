@@ -19,6 +19,10 @@ before_install:
     - sudo apt-get install -qq mysql-server -y
     - sudo apt-get install -qq mysql-client -y
     - sudo apt-get install -qq libcurl4-openssl-dev -y
+    - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
+    - echo 'deb https://dl.bintray.com/obiba/deb all main' | sudo tee /etc/apt/sources.list.d/obiba.list
+    - sudo apt-get update
+    - sudo apt-get install -qq opal -y
     - sudo /opt/puppetlabs/puppet/bin/gem install r10k
     - git clone -b ubuntu16 https://github.com/StuartWheater/datashield-infrastructure.git /tmp/datashield-infrastructure
     - sudo gem install r10k
