@@ -17,6 +17,10 @@ before_install:
     - sudo apt-get dist-upgrade -qq -y
     - sudo apt-get install -qq puppet-agent -y
     - sudo apt-get install -qq git -y
+    - sudo apt-get install -qq libxml2-utils -y
+    - sudo apt-get install -qq libxml2-dev -y
+    - sudo apt-get install -qq libssl-dev -y
+    - sudo apt-get install -qq libgit2-dev -y
     - sudo apt-get install -qq r-base r-base-dev -y
     - sudo apt-get install -qq libcurl4-openssl-dev -y
     - sudo apt-get install -qq iptables-persistent -y
