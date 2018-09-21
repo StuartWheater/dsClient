@@ -1,9 +1,11 @@
-language: generic
+language: r
 sudo: required
 dist: xenial
+
+r_github_packages:
+    - jimhester/covr
+
 before_install:
-    - curl -L -o /tmp/travis-tool.sh http://raw.github.com/StuartWheater/r-travis/master/scripts/travis-tool.sh
-    - chmod 755 /tmp/travis-tool.sh
     - wget -nv https://apt.puppetlabs.com/puppet5-release-xenial.deb
     - sudo dpkg -i puppet5-release-xenial.deb
     - sudo apt-get install -qq -f
@@ -41,12 +43,11 @@ install:
     - sudo /opt/puppetlabs/bin/puppet apply /tmp/datashield-infrastructure/puppet/environments/datashield_travis/manifests/site.pp --environment datashield_travis --environmentpath /tmp/datashield-infrastructure/puppet/environments 2>&1 | awk '{ print strftime("%Y-%m-%d %H:%M:%S "), $0; fflush(); }'
 
 script:
-    - sudo /tmp/travis-tool.sh install_github jimhester/covr
     - cd /home/travis/build/StuartWheater/dsClient
-    - /tmp/travis-tool.sh run_tests
+    - run_tests
 
 after_failure:
-    - cd /home/travis/build/StuartWheater/dsClient && sudo /tmp/travis-tool.sh dump_logs && cd --
+    - cd /home/travis/build/StuartWheater/dsClient && dump_logs && cd --
     - sudo cat /var/log/opal/stdout.log
 
 notifications:
