@@ -45,7 +45,7 @@ install:
 script:
     - sudo /tmp/travis-tool.sh install_github jimhester/covr
     - cd /home/travis/build/StuartWheater/dsClient
-    - /tmp/travis-tool.sh run_tests
+    - travis_wait 20 /tmp/travis-tool.sh run_tests
 
 after_failure:
     - cd /home/travis/build/StuartWheater/dsClient && sudo /tmp/travis-tool.sh dump_logs && cd --
