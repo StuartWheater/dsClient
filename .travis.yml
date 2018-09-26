@@ -33,7 +33,7 @@ before_install:
     - sudo apt-get install -qq opal -y
     - sudo /opt/puppetlabs/puppet/bin/gem install r10k -v 2.6.4
     - git clone -b ubuntu16 https://github.com/StuartWheater/datashield-infrastructure.git /tmp/datashield-infrastructure
-    - sudo gem install r10k
+#    - sudo gem install r10k
 #    - ls /opt/puppetlabs/puppet/bin/
     - sudo find / -name r10k
 
