@@ -38,7 +38,7 @@ before_install:
     - sudo find / -name r10k
 
 install:
-    - cd /tmp/datashield-infrastructure/puppet/environments/datashield_travis && sudo /home/travis/.rvm/gems/ruby-2.4.1/gems/r10k-2.6.4/bin/r10k puppetfile install && cd --
+    - cd /tmp/datashield-infrastructure/puppet/environments/datashield_travis && sudo /home/travis/.rvm/gems/ruby-2.4.1/gems/r10k-3.0.0/bin/r10k puppetfile install && cd --
     - travis_wait 20 sudo /opt/puppetlabs/bin/puppet apply /tmp/datashield-infrastructure/puppet/environments/datashield_travis/manifests/site.pp --environment datashield_travis --environmentpath /tmp/datashield-infrastructure/puppet/environments 2>&1 | awk '{ print strftime("%Y-%m-%d %H:%M:%S "), $0; fflush(); }'
 
 script:
